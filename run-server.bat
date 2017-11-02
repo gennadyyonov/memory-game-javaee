@@ -1,0 +1,1 @@
+mvn clean compile war:exploded liberty:run-server

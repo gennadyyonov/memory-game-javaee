@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="Memory Game Server">
+    <!-- Enable features -->
+    <featureManager>
+        <feature>webProfile-7.0</feature>
+        <feature>localConnector-1.0</feature>
+    </featureManager>
+
+    <keyStore id="defaultKeyStore" password="Liberty"/>
+    <remoteFileAccess>
+        <writeDir>${server.config.dir}</writeDir>
+    </remoteFileAccess>
+    <httpEndpoint id="defaultHttpEndpoint" httpPort="8890" httpsPort="9444"/>
+
+    <wasJmsEndpoint id="InboundJmsEndpoint" wasJmsPort="55604" wasJmsSSLPort="55605" />
+
+    <iiopEndpoint id="defaultIiopEndpoint" iiopPort="55606">
+        <iiopsOptions iiopsPort="55607" sslRef="defaultSSLConfig"/>
+    </iiopEndpoint>
+
+    <applicationManager autoExpand="true"/>
+    <applicationMonitor updateTrigger="mbean"/>
+
+    <application id="memory_game_war_exploded"
+                 location="${project.build.directory}/${project.artifactId}-${project.version}"
+                 name="memory_game_war_exploded" type="war" context-root="/">
+    </application>
+
+    <logging consoleLogLevel="INFO" traceFormat="BASIC" traceSpecification="*=fine" maxFileSize="2000" maxFiles="5"/>
+
+    <!--Disables autoscan of implicit beans in libraries-->
+    <cdi12 enableImplicitBeanArchives="false"/>
+</server>
+
